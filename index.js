@@ -29,16 +29,16 @@ for (i = 0, len = args.length; i < len; i++) {
         }
     } else {
         cmds.push(expandCommand(args[i]));
+        console.log(cmds);
     }
 }
 
 function expandCommand(cmd) {
-  if(/^~\w+$/.test(cmd) && scripts[cmd.substring(1)]) {
-    return expandCommand(scripts[cmd.substring(1)]);
+  var scmd;
+  while( (scmd = /~(\w+)/g.exec(cmd)) !== null) {
+    cmd = cmd.replace(scmd[0], "("+expandCommand(scripts[scmd[1]])+")");
   }
-  else {
-    return cmd;
-  }
+  return cmd;
 }
 
 // called on close of a child process
