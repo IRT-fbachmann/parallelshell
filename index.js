@@ -35,7 +35,7 @@ for (i = 0, len = args.length; i < len; i++) {
 
 function expandCommand(cmd) {
   var scmd;
-  while( (scmd = /~(\w+)/g.exec(cmd)) !== null) {
+  while( (scmd = /~([\w:-_#@]+)/g.exec(cmd)) !== null) {
     cmd = cmd.replace(scmd[0], "("+expandCommand(scripts[scmd[1]])+")");
   }
   return cmd;
