@@ -29,7 +29,6 @@ for (i = 0, len = args.length; i < len; i++) {
         }
     } else {
         cmds.push(expandCommand(args[i]));
-        console.log(cmds);
     }
 }
 
