@@ -3,7 +3,7 @@
 'use strict';
 var spawn = require('child_process').spawn;
 
-var scripts = require('./package.json').scripts;
+var scripts = require(require('path').join(process.cwd(),'package.json')).scripts;
 var sh, shFlag, children, args, wait, cmds, verbose, i ,len;
 // parsing argv
 cmds = [];
