@@ -3,6 +3,7 @@
 'use strict';
 var spawn = require('child_process').spawn;
 
+var scripts = require('./package.json').scripts;
 var sh, shFlag, children, args, wait, cmds, verbose, i ,len;
 // parsing argv
 cmds = [];
@@ -27,8 +28,17 @@ for (i = 0, len = args.length; i < len; i++) {
                 break;
         }
     } else {
-        cmds.push(args[i]);
+        cmds.push(expandCommand(args[i]));
     }
+}
+
+function expandCommand(cmd) {
+  if(/^~\w+$/.test(cmd) && scripts[cmd.substring(1)]) {
+    return expandCommand(scripts[cmd.substring(1)]);
+  }
+  else {
+    return cmd;
+  }
 }
 
 // called on close of a child process
